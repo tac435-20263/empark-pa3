@@ -1,0 +1,6 @@
+si:sit|six|side
+cle:clean|clear
+qu:quart|quick|quiet
+bea:bear|beat|beauty
+machine:machine
+f:far|fat|few

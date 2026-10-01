@@ -1,0 +1,7 @@
+si:si|sia|sib|sic|sid|sie|sig|sil|sim|sin
+cle:cled|clee|clef|cleg|clem|clep|clew|clead|cleam|clean
+qu:qu|qua|que|qui|quo|quab|quad|quae|quag|quai
+cypr:cypre|cypres|cypria|cyprid|cypris|cyprus|cypraea|cypress|cyprian|cyprina
+circa:circa|circar|circaea|circadian|circaetus|circassic|circassian|circaeaceae
+retr:retro|retry|retrad|retral|retree|retrim|retrip|retrod|retros|retrot
+frump:frump|frumps|frumpy|frumple|frumpery|frumpier|frumpily|frumpish|frumpled|frumpiest
