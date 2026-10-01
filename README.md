@@ -1,10 +1,9 @@
 # TAC 435 PA3 #
 
-### EDIT BELOW ###
-Name: Tommy Trojan
+Name: Ella Park
 
-Email: ttrojan@usc.edu
+Email: empark@usc.edu
 
-Section: [M/W or T/TH]
+Section: Tuesday/Thursday
 
-Platform: [PC/MAC]
+Platform: MAC
