@@ -18,7 +18,6 @@ public:
 	void Insert(std::string_view word)
 	{
 		// TODO
-		// recursively go down the tree and check to see if exists or need to create new 
 		Node * curr = mRoot;
 
 		for (char c : word){
@@ -70,7 +69,29 @@ public:
 	std::string FindPrefix(std::string_view word)
 	{
 		// TODO
-		return std::string{};
+		std::string best;
+		std::string current;
+		Node* curr = mRoot;
+
+		for (char c : word)
+		{
+			// only need to traverse as long as the WORD we are searching for
+			size_t i = mLetterToIndex(c) + 1; // account for $
+
+			if (curr->mPtr[i] == nullptr){
+				break; // return "" if no COMPLETE WORD match
+			}
+
+			current.push_back(c);
+
+			curr = curr->mPtr[i]; // include c in current first before checking if mPtr[0] is null or not
+
+			if (curr->mPtr[0] != nullptr) // check to see if '$' exists
+			{
+				best = current; // add current aka the c's into the best "holder" variable
+			}
+		}
+		return best;
 	}
 
 	// Given a string, returns a vector of up to X shortest words that match the prefix
@@ -78,7 +99,60 @@ public:
 	std::vector<std::string> CompleteFromPrefix(std::string_view prefix, size_t count = 3)
 	{
 		// TODO
-		return std::vector<std::string>{};
+		// basically a bfs
+		// store the partial word
+		// stop until reach count (3)
+		std::queue<std::pair<std::string, Node*>> q;
+		std::vector<std::string> res;
+		Node* curr = mRoot;
+		auto pref = std::string(prefix);
+
+
+		for (char c : prefix)
+		{
+			size_t i = mLetterToIndex(c) + 1;
+			if (curr->mPtr[i] == nullptr) // a char in prefix does NOT in the trie
+			{
+				return std::vector<std::string>{};
+			}
+			curr = curr->mPtr[i]; // go down the word letter
+		}
+
+		// curr is set to the last letter of prefix
+		// pass in empty string, then append the prefix with the s string in results array
+		q.push({"", curr});
+
+		while (!q.empty())
+		{
+			auto [s, n] = q.front();
+			q.pop();
+
+			// check if the current node is the $ or not
+			if (n->mPtr[0] != nullptr)
+			{
+				// found $
+				res.push_back({pref + s});
+
+				if (res.size() == count)
+				{
+					return res;
+				}
+			}
+
+			// else, if it is not the $--then find the alphabet
+			// and then append it to the string (in the queue)
+			for (size_t i = 1; i < AlphabetSize + 1; ++i)
+			{
+				// any other letter append to the queue
+				if (n->mPtr[i] != nullptr)
+				{
+					// push current characters in s + letter
+					char letter = 'A' + (i - 1); // account for +1 for $
+					q.push({s + letter, n->mPtr[i]});
+				}
+			}
+		}
+		return res;
 	}
 
 	// Need an empty default constructor due to deletes
@@ -92,7 +166,6 @@ public:
 
 private:
 	// TODO: Add node struct and any member data
-
 	struct Node{
 		Node* mPtr[AlphabetSize + 1] = {}; // +1 for $
 	};
