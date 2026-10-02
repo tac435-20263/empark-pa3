@@ -127,55 +127,55 @@ TEST_CASE("Student Trie tests", "[student]")
 }
 
 // DNA pattern matching tests
-// TEST_CASE("Student DNA pattern matching tests", "[student]")
-// {
-// 	SECTION("COVID pattern matching")
-// 	{
-// 		const char* argv[] = {
-// 			"tests/tests",
-// 			"dna",
-// 			"input/DNA-patterns.txt",
-// 			"input/COVID-reference.txt"
-// 		};
-// 		ProcessCommandArgs(4, argv);
-// 		bool result = CheckTextFilesSame("patterns.txt", "expected/COVID-patterns.txt");
-// 		REQUIRE(result);
-// 	}
-// 	SECTION("DMD pattern matching (correctness)")
-// 	{
-// 		const char* argv[] = {
-// 			"tests/tests",
-// 			"dna",
-// 			"input/DNA-patterns.txt",
-// 			"input/DMD.txt"
-// 		};
-// 		ProcessCommandArgs(4, argv);
-// 		bool result = CheckTextFilesSame("patterns.txt", "expected/DMD-patterns.txt");
-// 		REQUIRE(result);
-// 	}
-// 	SECTION("DMD pattern matching (timed)")
-// 	{
-// 		const char* argv[] = {
-// 			"tests/tests",
-// 			"dna",
-// 			"input/DNA-patterns.txt",
-// 			"input/DMD.txt"
-// 		};
-// 
-// 		auto start = std::chrono::high_resolution_clock::now();
-// 		ProcessCommandArgs(4, argv);
-// 		auto end = std::chrono::high_resolution_clock::now();
-// 		auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
-// 		float seconds = duration / 1000000000.0f;
-// 
-// 		bool result = CheckTextFilesSame("patterns.txt", "expected/DMD-patterns.txt");
-// 		REQUIRE(result);
-// 
-// 		WARN("****DMD pattern matching (timed) test took: " << seconds << "s****");
-// 		REQUIRE(seconds < 0.15f);
-// 	}
-// }
-// 
+TEST_CASE("Student DNA pattern matching tests", "[student]")
+{
+	SECTION("COVID pattern matching")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"dna",
+			"input/DNA-patterns.txt",
+			"input/COVID-reference.txt"
+		};
+		ProcessCommandArgs(4, argv);
+		bool result = CheckTextFilesSame("patterns.txt", "expected/COVID-patterns.txt");
+		REQUIRE(result);
+	}
+	SECTION("DMD pattern matching (correctness)")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"dna",
+			"input/DNA-patterns.txt",
+			"input/DMD.txt"
+		};
+		ProcessCommandArgs(4, argv);
+		bool result = CheckTextFilesSame("patterns.txt", "expected/DMD-patterns.txt");
+		REQUIRE(result);
+	}
+	SECTION("DMD pattern matching (timed)")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"dna",
+			"input/DNA-patterns.txt",
+			"input/DMD.txt"
+		};
+
+		auto start = std::chrono::high_resolution_clock::now();
+		ProcessCommandArgs(4, argv);
+		auto end = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+		float seconds = duration / 1000000000.0f;
+
+		bool result = CheckTextFilesSame("patterns.txt", "expected/DMD-patterns.txt");
+		REQUIRE(result);
+
+		WARN("****DMD pattern matching (timed) test took: " << seconds << "s****");
+		REQUIRE(seconds < 0.15f);
+	}
+}
+
 // // Graded autocomplete tests
 // TEST_CASE("Student autocomplete tests", "[student]")
 // {
