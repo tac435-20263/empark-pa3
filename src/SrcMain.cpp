@@ -5,21 +5,37 @@
 #include <string>
 #include <fstream>
 
-// make a new mapper for DNA sequencing (ATGC)
-struct DNATextIdxFunc
+namespace
 {
-	size_t operator()(char c) const
+	// make a new mapper for DNA sequencing (ATGC)
+	struct DNATextIdxFunc
 	{
-		switch (c)
+		size_t operator()(char c) const
 		{
-		case 'A' : return 0;
-		case 'T' : return 1;
-		case 'G' : return 2;
-		case 'C' : return 3;
-		default: return 0;
+			switch (c)
+			{
+			case 'A':
+				return 0;
+			case 'T':
+				return 1;
+			case 'G':
+				return 2;
+			case 'C':
+				return 3;
+			default:
+				return 0;
+			}
 		}
-	}
-};
+	};
+
+	struct autoTextIdxFunction
+	{
+		size_t operator()(char c) const
+		{
+			return c - 'a';
+		}
+	};
+} // namespace
 
 void ProcessCommandArgs(int argc, const char* argv[])
 {
@@ -91,4 +107,66 @@ void ProcessCommandArgs(int argc, const char* argv[])
 			++i;
 		}
 	} // end of dna
+
+
+	if (std::string (argv[1]) == "auto")
+	{
+		//alphabet is the lowercase letters a through z
+		//argv[2] contains the name of the words file
+		//argv[3] contains the name of the autocomplete stems file
+		//argv[4] contains the value of the count parameter (in string form)
+		std::string wordsFile = argv[2];
+		std::string stemsFile = argv[3];
+		std::string countParameter = argv[4];
+		size_t count = std::stoul(countParameter);
+
+		// open the words file
+		std::ifstream words (wordsFile);
+		if (!words.is_open())
+		{
+			throw std::runtime_error("couldnt open the words file");
+		}
+
+		// add each word to the trie
+		Trie<26, autoTextIdxFunction> autoTrie;
+		std::string w;
+		while (std::getline(words, w))
+		{
+			autoTrie.Insert(w);
+		}
+
+		//read each line and use CompleteFromPrefix to find the matching autocompletions
+		//making sure to use the number from argv[4] to get the correct count.
+		std::ifstream stems (stemsFile);
+		if (!stems.is_open())
+		{
+			throw std::runtime_error("couldnt open the stems file!");
+		}
+
+		// create the output file
+		std::ofstream out ("auto.txt");
+		if (!out.is_open())
+		{
+			throw std::runtime_error("couldnt open the output file");
+		}
+
+		std::string s;
+		while (std::getline(stems, s))
+		{
+			std::vector<std::string> matchingAutoCom = autoTrie.CompleteFromPrefix(s, count);
+			//For each stem you should output the stem,
+			//followed by a : with each match separated with a | into an auto.txt output file
+			out << s << ":";
+			for (size_t i = 0; i < matchingAutoCom.size(); ++i)
+			{
+				if (i > 0)
+				{
+					out << '|';
+				}
+				out << matchingAutoCom[i];
+			}
+			out << "\n"; // do new line after we output the matches for a stem
+		}
+
+	}// end of auto
 }

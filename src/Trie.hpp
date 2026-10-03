@@ -24,7 +24,8 @@ public:
 			size_t i = mLetterToIndex(c) + 1; // mapper function so i.e. 'A' = 0 + 1 = 1
 
 			if (curr->mPtr[i] == nullptr){ // doesn't exist in the mPtr
-				curr->mPtr[i] = new Node(); // address of the child node
+				curr->mPtr[i] = new Node(); // create a new child: address of the child node
+				curr->mPtr[i]->mLetter = c; // store each node's letter upon creation
 			}
 			curr = curr->mPtr[i]; // moving it down into the new Node we just created -- keep going
 		}
@@ -147,7 +148,7 @@ public:
 				if (n->mPtr[i] != nullptr)
 				{
 					// push current characters in s + letter
-					char letter = 'A' + (i - 1); // account for +1 for $
+					char letter = n->mPtr[i]->mLetter; // retrieve letter from Node
 					q.push({s + letter, n->mPtr[i]});
 				}
 			}
@@ -168,6 +169,7 @@ private:
 	// TODO: Add node struct and any member data
 	struct Node{
 		Node* mPtr[AlphabetSize + 1] = {}; // +1 for $
+		char mLetter = '\0';
 	};
 	// start of the trie
 	Node* mRoot = new Node();

@@ -177,57 +177,57 @@ TEST_CASE("Student DNA pattern matching tests", "[student]")
 }
 
 // // Graded autocomplete tests
-// TEST_CASE("Student autocomplete tests", "[student]")
-// {
-// 	SECTION("Top 1000 words autocomplete")
-// 	{
-// 		const char* argv[] = {
-// 			"tests/tests",
-// 			"auto",
-// 			"input/words-1000.txt",
-// 			"input/auto-1000.txt",
-// 			"3"
-// 		};
-// 		ProcessCommandArgs(5, argv);
-// 		bool result = CheckTextFilesSame("auto.txt", "expected/1000-auto.txt");
-// 		REQUIRE(result);
-// 	}
-// 
-// 	SECTION("All words autocomplete (correctness)")
-// 	{
-// 		const char* argv[] = {
-// 			"tests/tests",
-// 			"auto",
-// 			"input/words-all.txt",
-// 			"input/auto-all.txt",
-// 			"10"
-// 		};
-// 
-// 		ProcessCommandArgs(5, argv);
-// 		bool result = CheckTextFilesSame("auto.txt", "expected/all-auto.txt");
-// 		REQUIRE(result);
-// 	}
-// 
-// 	SECTION("All words autocomplete (timed)")
-// 	{
-// 		const char* argv[] = {
-// 			"tests/tests",
-// 			"auto",
-// 			"input/words-all.txt",
-// 			"input/auto-all.txt",
-// 			"10"
-// 		};
-// 
-// 		auto start = std::chrono::high_resolution_clock::now();
-// 		ProcessCommandArgs(5, argv);
-// 		auto end = std::chrono::high_resolution_clock::now();
-// 		auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
-// 		float seconds = duration / 1000000000.0f;
-// 
-// 		bool result = CheckTextFilesSame("auto.txt", "expected/all-auto.txt");
-// 		REQUIRE(result);
-// 
-// 		WARN("****All words autocomplete (timed) test took: " << seconds << "s****");
-// 		REQUIRE(seconds < 0.35f);
-// 	}
-// }
+TEST_CASE("Student autocomplete tests", "[student]")
+{
+	SECTION("Top 1000 words autocomplete")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"auto",
+			"input/words-1000.txt",
+			"input/auto-1000.txt",
+			"3"
+		};
+		ProcessCommandArgs(5, argv);
+		bool result = CheckTextFilesSame("auto.txt", "expected/1000-auto.txt");
+		REQUIRE(result);
+	}
+
+	SECTION("All words autocomplete (correctness)")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"auto",
+			"input/words-all.txt",
+			"input/auto-all.txt",
+			"10"
+		};
+
+		ProcessCommandArgs(5, argv);
+		bool result = CheckTextFilesSame("auto.txt", "expected/all-auto.txt");
+		REQUIRE(result);
+	}
+
+	SECTION("All words autocomplete (timed)")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"auto",
+			"input/words-all.txt",
+			"input/auto-all.txt",
+			"10"
+		};
+
+		auto start = std::chrono::high_resolution_clock::now();
+		ProcessCommandArgs(5, argv);
+		auto end = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+		float seconds = duration / 1000000000.0f;
+
+		bool result = CheckTextFilesSame("auto.txt", "expected/all-auto.txt");
+		REQUIRE(result);
+
+		WARN("****All words autocomplete (timed) test took: " << seconds << "s****");
+		REQUIRE(seconds < 0.35f);
+	}
+}
